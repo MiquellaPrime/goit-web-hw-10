@@ -1,0 +1,29 @@
+{% extends "quotes/base.html" %} {% load extract_tags %}
+
+{% block content %}
+
+<h2>Viewing tag: <mark>#{{ tag }}</mark></h2>
+
+{% for quote in quotes %}
+<article style="margin-bottom: 30px">
+    <blockquote>
+        <p>{{ quote.quote }}</p>
+    </blockquote>
+
+    <p>
+        <span>
+            by:
+            <small>{{ quote.author.full_name }}</small>
+        </span>
+        <a href="{% url 'quotes:author' quote.author.id %}">(about)</a>
+    </p>
+
+    <p>Tags: <small> {{ quote.tags|tags }} </small></p>
+</article>
+
+<hr>
+{% empty %}
+    <h3>Oops... No quotes found.</h3>
+{% endfor %}
+
+{% endblock %}
